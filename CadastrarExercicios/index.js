@@ -1,19 +1,15 @@
 import * as React from 'react';
 import { Text, View ,TextInput ,TouchableOpacity ,Button,Image} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Swal from 'sweetalert2';
-import CadastroExercicios from './CadastrarExercicios';
-import Logado from './Logado';
+import Swal from 'sweetalert2'
 
-function HomeScreen({ navigation }) {
+function Cadastro({ navigation }) {
   const [nome, setText] = React.useState('');
   const [senha,setSenha] = React.useState('');
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' ,backgroundColor:'dodgerblue' }}>
     <View style={{alignItems:'center'}}
     ><TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
-    <Image style={{width:150,height:150}} source={require('./assets/logo.png')} />
+    <Image style={{width:150,height:150}} source={require('../assets/logo.png')} />
     </TouchableOpacity>
     </View>
     <TextInput
@@ -127,7 +123,7 @@ var headers={
 <View style = {{backgroundColor: 'white', alignItems: 'center',
 justifyContent: 'center' ,borderRadius: 10,width:110 }}
 >
-<Text style = {{ color: 'dodgerblue', padding:10}}>Entrar</Text>
+<Text style = {{ color: 'dodgerblue', padding:10}}>Cadastrar</Text>
 </View>
 </TouchableOpacity>
 </View>
@@ -135,18 +131,5 @@ justifyContent: 'center' ,borderRadius: 10,width:110 }}
 }
 
 
-const Stack = createNativeStackNavigator();
 
-function App() {
-  return (
-    <NavigationContainer>
-    <Stack.Navigator initialRouteName="Bem Vindo" >
-    <Stack.Screen name="Focus Fitness" component={HomeScreen}/>
-    <Stack.Screen name="Cadastro-Exercicios" component={CadastroExercicios}/>
-    <Stack.Screen name="Bem Vindo" component={Logado}/>
-    </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-export default App;
+export default Cadastro;
