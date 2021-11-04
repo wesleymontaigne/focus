@@ -142,8 +142,36 @@ function App() {
     <NavigationContainer>
     <Stack.Navigator initialRouteName="Bem Vindo" >
     <Stack.Screen name="Focus Fitness" component={HomeScreen}/>
-    <Stack.Screen name="Cadastro-Exercicios" component={CadastroExercicios}/>
-    <Stack.Screen name="Bem Vindo" component={Logado}/>
+    <Stack.Screen name="Cadastro-Exercicios" component={CadastroExercicios}
+    options={{
+      headerRight:({navigation})=>(
+     <TouchableOpacity> 
+         <View style={{flexDirection:'row',margin:10}}>
+        <View style={{flexDirection:'column',alignItems:'center',flex:1}}>
+        <Image style={{width:60,height:60}} source={require('./assets/logo.png')} />
+        </View>
+         
+        </View>
+     </TouchableOpacity>
+       
+     ),
+    }}
+    />
+    <Stack.Screen name="Bem Vindo" component={Logado}
+    options={{
+      headerRight:({navigation})=>(
+     <TouchableOpacity> 
+         <View style={{flexDirection:'row',margin:10}}>
+        <View style={{flexDirection:'column',alignItems:'center',flex:1}}>
+        <Image style={{width:60,height:60}} source={require('./assets/logo.png')} />
+        </View>
+         
+        </View>
+     </TouchableOpacity>
+       
+     ),
+    }}
+    />
     </Stack.Navigator>
     </NavigationContainer>
   );
