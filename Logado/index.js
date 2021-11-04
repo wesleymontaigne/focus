@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View ,TextInput ,TouchableOpacity ,Button,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList} from 'react-native';
+import React, {useEffect,useState,useRef} from 'react';
+import { Text, View ,TextInput ,TouchableOpacity ,Button,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated} from 'react-native';
 import Swal from 'sweetalert2';
 
 
@@ -12,6 +12,18 @@ const [nome,setNome]=React.useState('');
 const [foto,setFoto]=React.useState('../assets/logo.png');
 const [datainicio,setdatainicio]=React.useState();
 const [objetivo,setObejetivo]=React.useState();
+const [iduser,setIdUser]=React.useState(1);
+
+
+{/*Animations sets*/}
+const [listItems, setListItems] = useState(data);
+const translateX = useRef(new Animated.Value(Dimensions.get("window").height)).current 
+useEffect(()=>{
+  Animated.timing(translateX,{toValue:0,duration:2000}).start();
+})
+
+
+
 
 {/*Pegar dados dos usuários*/}
 var validatinoApi ='https://wesleymontaigne.com/OOP/index.php';
@@ -66,7 +78,7 @@ var headers={
 
    {/*Pegar todas as aulas*/}
    useEffect(() => {
-    fetch('https://wesleymontaigne.com/controller/api/')
+    fetch(`https://wesleymontaigne.com/OOP/?id=${iduser}`,{method:'GET'})
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
@@ -85,7 +97,7 @@ var headers={
     <Text style={{color:'white',marginTop:7}}>{objetivo}</Text> 
     </View>
     </View>
-
+    <Animated.View style={{transform:[{translateY:translateX}]}} >
     <View style={{}}>
     <View style={{ flex: 1,
       backgroundColor: 'dodgerblue',
@@ -96,12 +108,15 @@ var headers={
       data={data}
       keyExtractor={({ id }, index) => id}
       renderItem={({ item }) => (
+      <TouchableOpacity>
       <View style={{flex:0}}>
       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
       <Image  style={{width:60,height:60,resizeMode:'contain'}} source={require('../assets/pulseHeart.png')} />
-      <Text style={{color:'white',marginLeft:14}}>Aula 1</Text>
+      <Text style={{color:'white',marginLeft:14}}>Aula {item.id}</Text>
       </View>
+          
       </View>
+      </TouchableOpacity> 
 
 
       
@@ -110,11 +125,9 @@ var headers={
     )}
   </View>
 
-
-
   
     </View>
-    
+    </Animated.View>    
     </View>
    </SafeAreaView>
 );
