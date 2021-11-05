@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Swal from 'sweetalert2';
 import CadastroExercicios from './CadastrarExercicios';
 import Logado from './Logado';
+import Exercicio from './Exercicios';
 
 function HomeScreen({ navigation }) {
   const [nome, setText] = React.useState('');
@@ -158,6 +159,21 @@ function App() {
     }}
     />
     <Stack.Screen name="Bem Vindo" component={Logado}
+    options={{
+      headerRight:({navigation})=>(
+     <TouchableOpacity> 
+         <View style={{flexDirection:'row',margin:10}}>
+        <View style={{flexDirection:'column',alignItems:'center',flex:1}}>
+        <Image style={{width:60,height:60}} source={require('./assets/logo.png')} />
+        </View>
+         
+        </View>
+     </TouchableOpacity>
+       
+     ),
+    }}
+    />
+    <Stack.Screen name="Ficha" component={Exercicio}
     options={{
       headerRight:({navigation})=>(
      <TouchableOpacity> 

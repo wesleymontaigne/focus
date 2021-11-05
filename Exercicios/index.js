@@ -1,9 +1,12 @@
 import React, {useEffect,useState,useRef} from 'react';
 import { Text, View ,TextInput ,TouchableOpacity ,Button,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated} from 'react-native';
 import Swal from 'sweetalert2';
+import { FontAwesome } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
 
 
-function Logado({ navigation }){
+function Exercicio({ navigation,route }){
+  console.log(route.params)
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const [isLoading, setLoading] = useState(true);
@@ -13,6 +16,7 @@ const [foto,setFoto]=React.useState('../assets/logo.png');
 const [datainicio,setdatainicio]=React.useState();
 const [objetivo,setObejetivo]=React.useState();
 const [iduser,setIdUser]=React.useState(1);
+const [aula,setaula]=React.useState(route.params.aula)
 
 
 {/*Animations sets*/}
@@ -78,12 +82,24 @@ var headers={
 
    {/*Pegar todas as aulas*/}
    useEffect(() => {
-    fetch(`https://wesleymontaigne.com/OOP/?id=${iduser}`,{method:'GET'})
+    fetch(`https://wesleymontaigne.com/OOP/?id=${iduser}&exercise=true&aula=${aula}`,{method:'GET'})
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
   }, []);
+
+
+  {/*Separator to FlatList*/}
+  const ItemSeparatorView = () => {
+    return (
+      //Item Separator
+      <View
+        style={{ height: 0.5, width: '100%', backgroundColor: '#C8C8C8'}}
+      />
+    );
+  };
+
   
   return (
     <SafeAreaView>
@@ -99,24 +115,33 @@ var headers={
     </View>
     <Animated.View style={{transform:[{translateY:translateX}]}} >
     <View style={{}}>
-    <View style={{ flex: 1,
-      backgroundColor: 'dodgerblue',
-      alignItems: 'center',
-      justifyContent: 'center', }}>
+    <View style={{backgroundColor: 'dodgerblue'}}>
     {isLoading ? <ActivityIndicator/> : (
       <FlatList
       data={data}
+      //data defined in constructor
+      ItemSeparatorComponent={ItemSeparatorView}
       keyExtractor={({ id }, index) => id}
       renderItem={({ item }) => (
-      <TouchableOpacity onPress={() => navigation.navigate('Ficha',{id:item.id,aula:item.aula})}>
-      <View style={{flex:0}}>
+     
+      <View style={{flex:0,marginBottom:7,marginTop:7}}>
       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
-      <Image  style={{width:60,height:60,resizeMode:'contain'}} source={require('../assets/pulseHeart.png')} />
-      <Text style={{color:'white',marginLeft:14}}>{item.aula}</Text>
+      <Image  style={{width:60,height:60,resizeMode:'contain',marginTop:7}} source={require('../assets/g817.png')} />
+      <Text style={{color:'white',marginLeft:14,fontSize:16}}>{item.treino}</Text>
+      <TouchableOpacity>
+      <FontAwesome name="youtube" size={24} color="white" style={{marginLeft:14}} />
+      </TouchableOpacity>
+
+      <TouchableOpacity>
+       <Foundation name="page-edit" size={24} color="white" style={{marginLeft:14}} /> 
+      </TouchableOpacity>
+     
       </View>
-          
+      <Text style={{marginLeft:10,color:'white'}}>SERIE: {item.serie} | REP: {item.rep} | DURA: {item.duracao} |  PESO: {item.peso} | EVOLUCAO: {item.evolucao} |</Text>
+             
       </View>
-      </TouchableOpacity> 
+     
+     
 
 
       
@@ -135,4 +160,4 @@ var headers={
 
 
 
-export default Logado;
+export default Exercicio;
