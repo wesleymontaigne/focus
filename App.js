@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View ,TextInput ,TouchableOpacity ,Button,Image} from 'react-native';
+import { Text, View ,TextInput ,TouchableOpacity ,Dimensions,Image, SafeAreaView} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Swal from 'sweetalert2';
@@ -10,8 +10,11 @@ import Exercicio from './Exercicios';
 function HomeScreen({ navigation }) {
   const [nome, setText] = React.useState('');
   const [senha,setSenha] = React.useState('');
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' ,backgroundColor:'dodgerblue' }}>
+    <SafeAreaView style={{height:windowHeight}}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' ,backgroundColor:'dodgerblue',height:windowHeight }}>
     <View style={{alignItems:'center'}}
     ><TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
     <Image style={{width:150,height:150}} source={require('./assets/logo.png')} />
@@ -69,14 +72,14 @@ if(!nome||!senha){
   
 }if(nome && senha){
 
-var validatinoApi ='https://wesleymontaigne.com/controller/api/api.php';
+var validatinoApi ='https://wesleymontaigne.com/OOP/index.php';
 var headers={
  'Accept':'application/json',
  'Content-Type':'application.json',
  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
  'Access-Control-Allow-Origin':'*',
  'crossDomain': 'true',
- 'Host': 'https://wesleymontaigne.com/controller/api/api.php',
+ 'Host': 'https://wesleymontaigne.com/OOP/index.php',
  'Origin': 'https://wesleymontaigne.com',
  
   };
@@ -95,7 +98,8 @@ var headers={
  }).then((response)=>response.json())
    .then((response)=>{
      if(response.statusCode==200){
-    alert(response.statusCode)
+      
+    navigation.navigate('Bem Vindo',{id:response.userid,sessionid:response.sessionid})
 
     }else{
 
@@ -131,7 +135,9 @@ justifyContent: 'center' ,borderRadius: 10,width:110 }}
 <Text style = {{ color: 'dodgerblue', padding:10}}>Entrar</Text>
 </View>
 </TouchableOpacity>
+<View style={{position:'absolute',marginTop:windowHeight-40}}><Text style={{color:'white',fontSize:10}}>R. A, 264 - Lua Nova da Pampulha, Contagem - MG, 32187-550</Text></View>
 </View>
+</SafeAreaView>
 );
 }
 
@@ -141,8 +147,22 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-    <Stack.Navigator initialRouteName="Bem Vindo" >
-    <Stack.Screen name="Focus Fitness" component={HomeScreen}/>
+    <Stack.Navigator initialRouteName="Focus Fitness" >
+    <Stack.Screen name="Focus Fitness" component={HomeScreen}
+     options={{
+      headerRight:({navigation})=>(
+     <TouchableOpacity> 
+         <View style={{flexDirection:'row',margin:10}}>
+        <View style={{flexDirection:'column',alignItems:'center',flex:1}}>
+        <Image style={{width:60,height:60}} source={require('./assets/logo.png')} />
+        </View>
+         
+        </View>
+     </TouchableOpacity>
+       
+     ),
+    }}
+    />
     <Stack.Screen name="Cadastro-Exercicios" component={CadastroExercicios}
     options={{
       headerRight:({navigation})=>(

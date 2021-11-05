@@ -1,9 +1,11 @@
 import React, {useEffect,useState,useRef} from 'react';
 import { Text, View ,TextInput ,TouchableOpacity ,Button,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated} from 'react-native';
 import Swal from 'sweetalert2';
+import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 
-function Logado({ navigation }){
+function Logado({ navigation,route }){
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const [isLoading, setLoading] = useState(true);
@@ -12,7 +14,8 @@ const [nome,setNome]=React.useState('');
 const [foto,setFoto]=React.useState('../assets/logo.png');
 const [datainicio,setdatainicio]=React.useState();
 const [objetivo,setObejetivo]=React.useState();
-const [iduser,setIdUser]=React.useState(1);
+const [iduser,setIdUser]=React.useState(route.params.id);
+
 
 
 {/*Animations sets*/}
@@ -94,7 +97,10 @@ var headers={
     <Text style={{color:'white',marginTop:5}}>{nome}</Text> 
     <Text style={{color:'white',marginTop:7}}>Data: {datainicio}</Text>
     <Text style={{color:'white',marginTop:7}}>Objetivo:</Text>
-    <Text style={{color:'white',marginTop:7}}>{objetivo}</Text> 
+    <Text style={{color:'white',marginTop:7}}>{objetivo}</Text>
+    <TouchableOpacity style={{flexDirection:'row'}}>
+    <FontAwesome name="credit-card" size={24} color="white" /><Text style={{color:'white',marginLeft:7}}>Em dia</Text>
+    </TouchableOpacity> 
     </View>
     </View>
     <Animated.View style={{transform:[{translateY:translateX}]}} >
