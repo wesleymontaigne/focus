@@ -23,7 +23,8 @@
     "sweetalert2-react-content": "^4.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@expo/webpack-config": "^0.16.6"
   },
   "private": true
 }

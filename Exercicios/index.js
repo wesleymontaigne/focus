@@ -136,8 +136,37 @@ var headers={
        <Foundation name="page-edit" size={24} color="white" style={{marginLeft:14}} /> 
       </TouchableOpacity>
      
+      </View >
+      <View style={{flex:1,margin:7}}>
+      <View style={{flexDirection:'row',alignItems:'center',margin:5}}>
+      <Image style={{width:50,height:50,resizeMode:'contain'}} source={require('../assets/serie.png')}/>
+      <Text style={{color:'white'}}>Serie: {item.serie}</Text>
       </View>
-      <Text style={{marginLeft:10,color:'white'}}>SERIE: {item.serie} | REP: {item.rep} | DURA: {item.duracao} |  PESO: {item.peso} | EVOLUCAO: {item.evolucao} |</Text>
+      
+      <View style={{flexDirection:'row',alignItems:'center',margin:5}}>
+      <Image style={{width:50,height:50,resizeMode:'contain'}} source={require('../assets/rep.png')}/>
+      <Text style={{color:'white'}}> Repet: {item.rep}</Text>
+      </View>
+
+      <View style={{flexDirection:'row',alignItems:'center',margin:5}}>
+      <Image style={{width:50,height:50,resizeMode:'contain'}} source={require('../assets/duracao.png')}/>
+      <Text style={{color:'white'}}> Duraç:{item.duracao}</Text>
+      </View>
+
+      <View style={{flexDirection:'row',alignItems:'center',margin:5}}>
+      <Image style={{width:50,height:50,resizeMode:'contain'}} source={require('../assets/peso.png')}/>
+      <Text style={{color:'white'}}> Peso : {item.peso}</Text>
+      </View>
+
+      <View style={{flexDirection:'row',alignItems:'center',margin:5}}>
+      <Image style={{width:50,height:50,resizeMode:'contain'}} source={require('../assets/evolution.png')}/>
+      <Text style={{color:'white'}}> Evolu : {item.evolucao}</Text>
+      </View>
+
+
+      </View>
+      {/*<Text style={{marginLeft:10,color:'white'}}>SERIE: {item.serie} | REP: {item.rep} | DURA: {item.duracao} |  PESO: {item.peso} | EVOLUCAO: {item.evolucao} |</Text>
+      */}
              
       </View>
      

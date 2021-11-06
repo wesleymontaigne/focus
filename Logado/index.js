@@ -98,9 +98,15 @@ var headers={
     <Text style={{color:'white',marginTop:7}}>Data: {datainicio}</Text>
     <Text style={{color:'white',marginTop:7}}>Objetivo:</Text>
     <Text style={{color:'white',marginTop:7}}>{objetivo}</Text>
-    <TouchableOpacity style={{flexDirection:'row'}}>
+    <View style={{flexDirection:'row',alignContent:'space-around'}}>
+    <TouchableOpacity style={{flexDirection:'row',marginRight:7}}>
     <FontAwesome name="credit-card" size={24} color="white" /><Text style={{color:'white',marginLeft:7}}>Em dia</Text>
     </TouchableOpacity> 
+    <TouchableOpacity style={{flexDirection:'row'}}>
+    <FontAwesome name="dashboard" size={24} color="white" /><Text style={{color:'white',marginLeft:7}}>Painel</Text>
+    
+    </TouchableOpacity>
+    </View>
     </View>
     </View>
     <Animated.View style={{transform:[{translateY:translateX}]}} >
