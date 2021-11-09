@@ -120,7 +120,7 @@ var headers={
       data={data}
       keyExtractor={({ id }, index) => id}
       renderItem={({ item }) => (
-      <TouchableOpacity onPress={() => navigation.navigate('Ficha',{id:item.id,aula:item.aula})}>
+      <TouchableOpacity onPress={() => navigation.navigate('Ficha',{id:iduser,aula:item.aula})}>
       <View style={{flex:0}}>
       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
       <Image  style={{width:60,height:60,resizeMode:'contain'}} source={require('../assets/pulseHeart.png')} />

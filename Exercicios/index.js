@@ -1,12 +1,11 @@
 import React, {useEffect,useState,useRef} from 'react';
-import { Text, View ,TextInput ,TouchableOpacity ,Button,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated} from 'react-native';
+import { Text, View ,TextInput ,TouchableOpacity ,StatusBar,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated} from 'react-native';
 import Swal from 'sweetalert2';
 import { FontAwesome } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
 
 
 function Exercicio({ navigation,route }){
-  console.log(route.params)
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const [isLoading, setLoading] = useState(true);
@@ -15,8 +14,9 @@ const [nome,setNome]=React.useState('');
 const [foto,setFoto]=React.useState('../assets/logo.png');
 const [datainicio,setdatainicio]=React.useState();
 const [objetivo,setObejetivo]=React.useState();
-const [iduser,setIdUser]=React.useState(1);
+const [iduser,setIdUser]=React.useState(route.params.id);
 const [aula,setaula]=React.useState(route.params.aula)
+
 
 
 {/*Animations sets*/}
@@ -102,7 +102,7 @@ var headers={
 
   
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex:1,marginTop: StatusBar.currentHeight || 0}}>
     <View style={{ backgroundColor:'dodgerblue',height:windowHeight }}>
     <View style={{flexDirection:'row',margin:7}}>
     <Image style={{width:125,height:125,borderRadius:25}} source={{uri:foto}} />   
@@ -122,6 +122,7 @@ var headers={
       //data defined in constructor
       ItemSeparatorComponent={ItemSeparatorView}
       keyExtractor={({ id }, index) => id}
+      ListFooterComponent={<View><Text>Voltar</Text></View>}
       renderItem={({ item }) => (
      
       <View style={{flex:0,marginBottom:7,marginTop:7}}>
