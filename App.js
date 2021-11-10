@@ -10,6 +10,7 @@ import Admin from './Admin';
 import Dashboard from './Admin/dash';
 import { FontAwesome } from '@expo/vector-icons';
 import AddAula from './AddAula';
+import CadastroUsuario from './CadastrarUsuario';
 import disableBrowserBackButton from 'disable-browser-back-navigation';
 
 
@@ -46,8 +47,8 @@ function HomeScreen({ navigation }) {
       outline: 'none',
       color:'white',
       placeholderTextColor:'white'}}
-      placeholder="Telefone"
-      keyboardType='numeric'
+      placeholder="Primeiro Nome"
+      keyboardType='default'
      
     />
 
@@ -172,7 +173,7 @@ function App() {
 
   return (
         <NavigationContainer>
-    <Stack.Navigator initialRouteName="FOcus Fitness">
+    <Stack.Navigator initialRouteName="Cadastrar-Usuario">
     <Stack.Screen name="Focus Fitness" component={HomeScreen}
      options={{
       headerRight:({navigation})=>(
@@ -252,6 +253,22 @@ function App() {
   
    
   <Stack.Screen name="Dashboard" component={Dashboard}
+    options={{
+      headerRight:({navigation})=>(
+     <TouchableOpacity> 
+         <View style={{flexDirection:'row',margin:10}}>
+        <View style={{flexDirection:'column',alignItems:'center',flex:1}}>
+        <Image style={{width:60,height:60}} source={require('./assets/logo.png')} />
+        </View>
+         
+        </View>
+     </TouchableOpacity>
+       
+     ),
+    }}
+    />
+
+<Stack.Screen name="Cadastrar-Usuario" component={CadastroUsuario}
     options={{
       headerRight:({navigation})=>(
      <TouchableOpacity> 
