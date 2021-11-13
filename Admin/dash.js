@@ -20,7 +20,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 
-const App = () => {
+const App = ({navigation}) => {
 const [color,setColor]=React.useState('white')
 
   
@@ -30,7 +30,11 @@ const [color,setColor]=React.useState('white')
      <View style={styles.dash}>
     {/*cada  item do painel*/}
      <View >
-    <TouchableOpacity style={{justifyContent:'center',alignItems:'center',margin:7}}> 
+    <TouchableOpacity style={{justifyContent:'center',alignItems:'center',margin:7}}
+    onPress={()=>{
+      navigation.navigate('Cadastrar-Usuario')
+    }}
+    > 
      <FontAwesome name="user-plus" size={24} color={color} />
      <Text style={{color:color}}>Cadastrar</Text> 
      </TouchableOpacity>

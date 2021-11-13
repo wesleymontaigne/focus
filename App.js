@@ -47,8 +47,8 @@ function HomeScreen({ navigation }) {
       outline: 'none',
       color:'white',
       placeholderTextColor:'white'}}
-      placeholder="Primeiro Nome"
-      keyboardType='default'
+      placeholder="Telefone"
+      keyboardType='numeric'
      
     />
 
@@ -173,7 +173,7 @@ function App() {
 
   return (
         <NavigationContainer>
-    <Stack.Navigator initialRouteName="Cadastrar-Usuario">
+    <Stack.Navigator initialRouteName="Focus Fitness">
     <Stack.Screen name="Focus Fitness" component={HomeScreen}
      options={{
       headerRight:({navigation})=>(

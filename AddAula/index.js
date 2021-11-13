@@ -5,46 +5,155 @@ import {
   StyleSheet,
   FlatList,
   CheckBox,
-  Button,
-  Modal,
+  
 } from 'react-native';
+import Swal from 'sweetalert2';
 import Constants from 'expo-constants';
-
 // or any pure javascript modules available in npm
 import { Card } from 'react-native-paper';
 
  
 
-const data = [
-  { id: 1, txt: 'first check', isChecked: false },
-  { id: 2, txt: 'second check', isChecked: false },
-  { id: 3, txt: 'third check', isChecked: false },
-  { id: 4, txt: 'fourth check', isChecked: false },
-  { id: 5, txt: 'fifth check', isChecked: false },
-  { id: 6, txt: 'sixth check', isChecked: false },
-  { id: 7, txt: 'seventh check', isChecked: false },
-  { id: 1, txt: 'first check', isChecked: false },
-  { id: 2, txt: 'second check', isChecked: false },
-  { id: 3, txt: 'third check', isChecked: false },
-  { id: 4, txt: 'fourth check', isChecked: false },
-  { id: 5, txt: 'fifth check', isChecked: false },
-  { id: 6, txt: 'sixth check', isChecked: false },
-  { id: 7, txt: 'seventh check', isChecked: false },
-  { id: 1, txt: 'first check', isChecked: false },
-  { id: 2, txt: 'second check', isChecked: false },
-  { id: 3, txt: 'third check', isChecked: false },
-  { id: 4, txt: 'fourth check', isChecked: false },
-  { id: 5, txt: 'fifth check', isChecked: false },
-  { id: 6, txt: 'sixth check', isChecked: false },
-  { id: 7, txt: 'seventh check', isChecked: false },
-];
 
-const App = () => {
-  const [products, setProducts] = useState(data);
+
+const App = ({route}) => {
+  const [products, setProducts] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [userid,setIdUser]=React.useState(route.params.id);
+  const [aula,setAula]=React.useState('Aula 1');
+  const [exercicioId,setExercicio]=React.useState('');
+
+
+
+
+
+  const insertExercide = (Data) =>{
+   
+    {/*Pegar dados dos usuários*/}
+var validationApi ='https://wesleymontaigne.com/OOP/index.php';
+var headers={
+ 'Accept':'application/json',
+ 'Content-Type':'application.json',
+ 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+ 'Access-Control-Allow-Origin':'*',
+ 'crossDomain': 'true',
+ 'Host': 'https://wesleymontaigne.com/OOP/index.php',
+ 'Origin': 'https://wesleymontaigne.com',
+ 
+  };
+ /*'crossDomain': 'true',*/
+
+ fetch(validationApi,
+  {
+   method:'POST',
+   headers:headers,
+   body:JSON.stringify(Data)
+ }).then((response)=>response.json())
+   .then((response)=>{
+   if(response.statusCode==200){
+    alert('Deu certo só não sei oque')
+
+    }else{
+
+   
+  Swal.fire({
+  title: 'Erro!',
+  text: response.statusCode,
+  icon: 'error',
+  confirmButtonText: 'Continuar'
+  })
+
+    }
+   
+
+   })
+   .catch((error)=>{
+     alert(error);
+   });
+
+   
+  }
+  {/*Fim function insert*/}
+
+
+  const atributos =(exercicioId,userid,productNome,youtube)=>{
+   
+    (async () => {
+
+      const { value: formValues } = await Swal.fire({
+        title: 'Atributos',
+        html:'<p>Aula</p>'+
+          `<input id="swal-input1" value="${aula}">` +
+          '<p>Serie</p>'+
+          '<input id="swal-input2" type="number" >'+
+          '<p>Rep.</p>'+
+          '<input id="swal-input3" type="number" value="3" >'+
+          '<p>Duração</p>'+
+          '<input id="swal-input4" type="number" >'+
+          '<p>Peso</p>'+
+          '<input id="swal-input5" type="number" value="15" >'+
+          '<p>Evolução</p>'+
+          '<input id="swal-input6" type="number" >'+
+          '<p>Observação</p>'+
+          '<input id="swal-input7" type="number" >',
+        focusConfirm: false,
+        preConfirm: () => {
+        setAula(document.getElementById('swal-input1').value)
+         
+          return [{
+                   nomeExercio:productNome,
+                   exercicioId:exercicioId,
+                   youtube:youtube,
+                   userid:userid, 
+                   aula:document.getElementById('swal-input1').value,
+                   serie:document.getElementById('swal-input2').value,
+                   rep:document.getElementById('swal-input3').value,
+                   duracao:document.getElementById('swal-input4').value,
+                   peso:document.getElementById('swal-input5').value,
+                   evolucao:document.getElementById('swal-input6').value,
+                   observacao:document.getElementById('swal-input7').value, 
+        },
+            
+          ]
+        }
+      })
+      
+      if (formValues) {
+
+     var resultado=  insertExercide(formValues);
+        //Swal.fire(JSON.stringify(formValues))
+        console.log(resultado+'here my result');// here my result
+      }
+      
+      })()
+
+  }
+
+
+ 
+   {/*Pegar todos exercicios*/}
+   useEffect(() => {
+    fetch(`https://wesleymontaigne.com/OOP/?exercise=all`,{method:'GET'})
+      .then((response) => response.json())
+      .then((json) => setProducts(json))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleChange = (id) => {
     let temp = products.map((product) => {
       if (id === product.id) {
+        if(!product.isChecked){
+          
+          console.log(product.nome)
+          atributos(product.id,userid,product.nome,product.youtube);
+        }else{
+          alert('apagar')
+        }
+      
+
+
+
         return { ...product, isChecked: !product.isChecked };
       }
       return product;
@@ -73,7 +182,7 @@ const App = () => {
                     handleChange(item.id);
                   }}
                 />
-                <Text>{item.txt}</Text>
+                <Text>{item.nome}</Text>
               </View>
             </View>
           </Card>

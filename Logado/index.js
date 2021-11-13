@@ -102,7 +102,9 @@ var headers={
     <TouchableOpacity style={{flexDirection:'row',marginRight:7}}>
     <FontAwesome name="credit-card" size={24} color="white" /><Text style={{color:'white',marginLeft:7}}>Em dia</Text>
     </TouchableOpacity> 
-    <TouchableOpacity style={{flexDirection:'row'}}>
+    <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>{
+      navigation.navigate('AddAula',{id:iduser});
+    }} >
     <FontAwesome name="dashboard" size={24} color="white" /><Text style={{color:'white',marginLeft:7}}>Painel</Text>
     
     </TouchableOpacity>

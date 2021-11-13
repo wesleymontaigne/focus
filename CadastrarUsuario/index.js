@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, TextInput, TouchableOpacity, Dimensions, Image, SafeAreaView, Button } from 'react-native';
 import Swal from 'sweetalert2';
 import * as ImagePicker from 'expo-image-picker';
+import { MaskedTextInput} from "react-native-mask-text";
 
 
 function Admin({ navigation }) {
@@ -11,9 +12,13 @@ function Admin({ navigation }) {
   const [telefone, setTelefone] = React.useState('');
   const [objectivo, setObjective] = React.useState('')
   const windowHeight = Dimensions.get('window').height;
-  const [image, setImage] = React.useState(null);
+  const [image, setImage] = React.useState('https://wesleymontaigne.com/OOP/fotos/logo.png');
   const [namefoto, setNomeFoto] = React.useState('');
-  const [Type, setType] = React.useState('')
+  const [Type, setType] = React.useState('');
+  const [idade,setIdade]=React.useState();
+  const [maskedValue, setMaskedValue] = useState("");
+  const [unMaskedValue, setUnmaskedValue] = useState("");
+  
 
 
 
@@ -44,7 +49,7 @@ function Admin({ navigation }) {
         <View style={{ alignItems: 'center' }}
         >
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Button title="Ecolher Foto" onPress={pickImage} />
+            <Button title="Escolher Foto" onPress={pickImage} />
             {image && <Image source={{ uri: image }} style={{ width: 150, height: 150 }} />}
           </View>
         </View>
@@ -110,6 +115,30 @@ function Admin({ navigation }) {
           placeholder="Sobre Nome"
           keyboardType='default'
         />
+        
+        
+<MaskedTextInput
+        mask="(99/99/9999)"
+        onChangeText={(text, rawText) => {
+          setMaskedValue(text);
+          setUnmaskedValue(rawText);
+        }}
+        style={{
+          height: 40,
+          margin: 12,
+          borderWidth: 1,
+          borderBottomWidth: 1,
+          borderLeftWidth: 0,
+          borderRightWidth: 0,
+          borderTopWidth: 0,
+          borderColor: 'white',
+          outline: 'none',
+          color: 'white',
+          placeholderTextColor: 'white'
+        }}
+        placeholder='Idade'
+        keyboardType="numeric"
+      />
 
         <TextInput
           value={objectivo}
@@ -156,7 +185,7 @@ function Admin({ navigation }) {
 
         <TouchableOpacity onPress={() => {/* do this */
 
-          if (!nome || !senha || !telefone || !sobreNome || !objectivo) {
+          if (!nome || !senha || !telefone || !sobreNome || !objectivo||!maskedValue||!image) {
 
             Swal.fire({
               title: 'Erro!',
@@ -178,6 +207,19 @@ function Admin({ navigation }) {
               return true;
             }
 
+            if(!image){
+              Swal.fire({
+                title: 'Erro!',
+                text: 'Escolha uma foto',
+                icon: 'error',
+                confirmButtonText: 'Continuar'
+              })
+              return true;
+            }
+
+            {/*set loading from Swal*/}
+            {Swal.showLoading()}
+
             var validatinoApi = 'https://wesleymontaigne.com/OOP/fotos/index.php';
             var headers = {
               'Accept': 'application/json',
@@ -198,7 +240,8 @@ function Admin({ navigation }) {
               senha: senha,
               image: image,
               namefoto: `photo.${namefoto}`,
-              type: `image/${Type}`
+              type: `image/${Type}`,
+              idade:maskedValue
 
             };
 
@@ -210,15 +253,15 @@ function Admin({ navigation }) {
               }).then((response) => response.json())
               .then((response) => {
                 if (response.statusCode == 200) {
-
+                  {Swal.hideLoading()}
                   navigation.navigate('Dashboard', { id: response.userid, sessionid: response.sessionid })
 
                 } else {
 
-
+                  Swal.hideLoading()
                   Swal.fire({
                     title: 'Erro!',
-                    text: 'Usuário ou senhas errados',
+                    text: 'Verifique sua internet',
                     icon: 'error',
                     confirmButtonText: 'Continuar'
                   })
