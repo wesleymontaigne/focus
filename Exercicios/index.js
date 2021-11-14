@@ -9,7 +9,6 @@ import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
 
 
 function Exercicio({ navigation,route }){
-const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const [isLoading, setLoading] = useState(true);
 const [data, setData] = useState([]);
@@ -20,6 +19,7 @@ const [objetivo,setObejetivo]=React.useState();
 const [iduser,setIdUser]=React.useState(route.params.id);
 const [aula,setaula]=React.useState(route.params.aula);
 const [startAula,setStartAula]=React.useState(true);
+
 
 {/*watch vars*/}
 const [isTimerStart, setIsTimerStart] = useState(false);
@@ -92,6 +92,7 @@ var headers={
 
    {/*Pegar todas as aulas*/}
    useEffect(() => {
+     console.log(iduser)
     fetch(`https://wesleymontaigne.com/OOP/?id=${iduser}&exercise=true&aula=${aula}`,{method:'GET'})
       .then((response) => response.json())
       .then((json) => setData(json))
@@ -227,7 +228,9 @@ var headers={
       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
       <Image  style={{width:60,height:60,resizeMode:'contain',marginTop:7}} source={require('../assets/g817.png')} />
       <Text style={{color:'white',marginLeft:14,fontSize:16}}>{item.treino}</Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>{
+       navigation.navigate('Youtube',{id:item.youtube})
+      }}>
       <FontAwesome name="youtube" size={24} color="white" style={{marginLeft:14}} />
       </TouchableOpacity>
 

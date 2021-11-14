@@ -12,7 +12,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import AddAula from './AddAula';
 import CadastroUsuario from './CadastrarUsuario';
 import disableBrowserBackButton from 'disable-browser-back-navigation';
-
+import youtube from './youtube';
 
 function HomeScreen({ navigation }) {
   disableBrowserBackButton();
@@ -112,7 +112,7 @@ var headers={
    .then((response)=>{
      if(response.statusCode==200){
    
-    navigation.navigate('Bem Vindo',{id:response.userid,sessionid:response.sessionid})
+    navigation.replace('Bem Vindo',{id:response.userid,sessionid:response.sessionid})
 
     }else{
 
@@ -269,6 +269,23 @@ function App() {
     />
 
 <Stack.Screen name="Cadastrar-Usuario" component={CadastroUsuario}
+    options={{
+      headerRight:({navigation})=>(
+     <TouchableOpacity> 
+         <View style={{flexDirection:'row',margin:10}}>
+        <View style={{flexDirection:'column',alignItems:'center',flex:1}}>
+        <Image style={{width:60,height:60}} source={require('./assets/logo.png')} />
+        </View>
+         
+        </View>
+     </TouchableOpacity>
+       
+     ),
+    }}
+    />
+
+
+<Stack.Screen name="Youtube" component={youtube}
     options={{
       headerRight:({navigation})=>(
      <TouchableOpacity> 

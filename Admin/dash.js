@@ -51,7 +51,12 @@ const [color,setColor]=React.useState('white')
 
       {/*cada  item do painel*/}
      <View >
-     <TouchableOpacity style={{justifyContent:'center',alignItems:'center',margin:7}}> 
+     <TouchableOpacity style={{justifyContent:'center',alignItems:'center',margin:7}}
+     onPress={()=>{
+     navigation.navigate("Cadastro-Exercicios")
+
+     }}
+     > 
      <FontAwesome5 name="file-signature" size={24} color={color} />
      <Text style={{color:color}}>Exercicios</Text> 
      </TouchableOpacity>

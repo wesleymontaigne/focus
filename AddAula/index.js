@@ -16,7 +16,7 @@ import { Card } from 'react-native-paper';
 
 
 
-const App = ({route}) => {
+const App = ({navigation,route}) => {
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [userid,setIdUser]=React.useState(route.params.id);
@@ -51,7 +51,12 @@ var headers={
  }).then((response)=>response.json())
    .then((response)=>{
    if(response.statusCode==200){
-    alert('Deu certo só não sei oque')
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1000
+    })
 
     }else{
 
@@ -122,7 +127,7 @@ var headers={
 
      var resultado=  insertExercide(formValues);
         //Swal.fire(JSON.stringify(formValues))
-        console.log(resultado+'here my result');// here my result
+        
       }
       
       })()
@@ -194,7 +199,7 @@ var headers={
   return (
     <View style={styles.container}>
       <View style={{ flex: 1 }}>{renderFlatList(products)}</View>
-      <Text style={styles.text}>Aluno</Text>
+      <Text style={styles.text} onPress={()=>{navigation.replace('Bem Vindo',{id:userid})}}>Terminei</Text>
      {/*<View style={{ flex: 1 }}>{renderFlatList(selected)}</View>
    */} 
    

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View ,TextInput ,TouchableOpacity ,Button,Image} from 'react-native';
+import { Text, View ,TextInput ,TouchableOpacity, Image} from 'react-native';
 import Swal from 'sweetalert2'
 
 function Cadastro({ navigation }) {
