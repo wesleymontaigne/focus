@@ -51,12 +51,7 @@ var headers={
  }).then((response)=>response.json())
    .then((response)=>{
    if(response.statusCode==200){
-    Swal.fire({
-      position: 'top',
-      icon: 'success',
-      showConfirmButton: false,
-      timer: 1000
-    })
+   
 
     }else{
 
@@ -79,6 +74,60 @@ var headers={
    
   }
   {/*Fim function insert*/}
+
+  {/*deleteExercise*/}
+
+  const deleteExercise = (idproduto,userid,aula) =>{
+   
+  var Data={
+ idproduto:idproduto,
+ userid:userid,
+ aula:aula
+  }  
+   
+    {/*Pegar dados dos usuários*/}
+var validationApi ='https://wesleymontaigne.com/OOP/index.php';
+var headers={
+ 'Accept':'application/json',
+ 'Content-Type':'application.json',
+ 'Access-Control-Allow-Methods': 'DELETE',
+ 'Access-Control-Allow-Origin':'*',
+ 'crossDomain': 'true',
+ 'Host': 'https://wesleymontaigne.com/OOP/index.php',
+ 'Origin': 'https://wesleymontaigne.com',
+ 
+  };
+ /*'crossDomain': 'true',*/
+
+ fetch(validationApi,
+  {
+   method:'DELETE',
+   headers:headers,
+   body:JSON.stringify(Data)
+ }).then((response)=>response.json())
+   .then((response)=>{
+   if(response.statusCode==200){
+    
+    }else{
+
+   
+  Swal.fire({
+  title: 'Erro!',
+  text: response.statusCode,
+  icon: 'error',
+  confirmButtonText: 'Continuar'
+  })
+
+    }
+   
+
+   })
+   .catch((error)=>{
+     alert(error);
+   });
+
+   
+  }
 
 
   const atributos =(exercicioId,userid,productNome,youtube)=>{
@@ -149,11 +198,10 @@ var headers={
     let temp = products.map((product) => {
       if (id === product.id) {
         if(!product.isChecked){
-          
-          console.log(product.nome)
-          atributos(product.id,userid,product.nome,product.youtube);
+        console.log(product.nome)
+        atributos(product.id,userid,product.nome,product.youtube);
         }else{
-          alert('apagar')
+        deleteExercise(product.id,userid,aula)
         }
       
 
